@@ -16,7 +16,7 @@
 <body style = "min-height: 75rem; padding-top: 4.5rem;">
   <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
     <div class="container border-bottom border-success">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="{% url 'home' %}">
         <!-- <svg class="bi bi-diamond-half text-success" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 .989c.127 0 .253.049.35.145l6.516 6.516a.495.495 0 0 1 0 .7L8.35 14.866a.493.493 0 0 1-.35.145V.989z"/>
         </svg> -->
@@ -28,8 +28,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto ">
-          <a class="nav-item nav-link mr-4" href="#">Sign Up</a>
-          <a class="nav-item nav-link" href="#">Login</a>
+          {% if user.is_authenticated %}
+          <a class="nav-item nav-link badge" href="javascript:{document.getElementById('logoutform').submit()}">
+            <h6>Logout <span class="badge badge-light">{{ user.username}}</span></h6>
+          </a>
+          <form id="logoutform" action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden">
+          </form>
+          {% else %}
+          <a class="nav-item nav-link mr-4" href="{% url 'signup' %}">Sign Up</a>
+          <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+          {% endif %}
         </div>
       </div>
     </div>
