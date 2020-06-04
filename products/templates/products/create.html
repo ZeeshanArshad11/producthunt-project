@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add New Product
+{% endblock title %}
+
+{% block content %}
+{% if error %}
+<div class="container">
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Attention!</strong> {{ error }} <strong>Please Try again!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+{% endif %}
+<h1 class="text-center">Add Product !</h1>
+<div class="container col-md-6 mt-4 " style="height: 500px;">
+  <form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group row">
+      <label for="inputtitle" class="col-sm-3 col-form-label">Product Title</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control border-success" id="inputtitle" name="title" placeholder="Enter Product Title Here">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputurl" class="col-sm-3 col-form-label">URL</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control border-success" id="inputurl" name="url" placeholder="Enter product url here">
+      </div>
+    </div>
+    <div class="form-group row shadow-textarea">
+      <label for="inputbody" class="col-sm-3 col-form-label">Body</label>
+      <div class="col-sm-8">
+        <textarea class="form-control z-depth-1 border-success" id="inputbody" rows="5" name="body" placeholder="Write something here..."></textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputGroupicon" class="col-sm-3 col-form-label">Icon</label>
+      <div class="input-group col-sm-8">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input " id="inputGroupicon"
+          aria-describedby="inputGroupFileAddon01" name="icon">
+          <label class="custom-file-label border-success" for="inputGroupicon">Choose file for icon</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputGroupimage" class="col-sm-3 col-form-label">Image</label>
+      <div class="input-group col-sm-8">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input " id="inputGroupimage"
+          aria-describedby="inputGroupFileAddon01" name="image">
+          <label class="custom-file-label border-success" for="inputGroupimage">Choose file for image</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-12 text-center">
+        <button type="submit" class="btn btn-primary">Add Now</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock content %}

@@ -5,11 +5,13 @@ from django.contrib.auth.models import User
 class Product(models.Model):
     title = models.CharField(max_length = 100)
     url  = models.URLField(max_length=200)
-    pub_date = models.DateTimeField(auto_now_add = True)
-    votes_total = models.IntegerField(default=1)
-    image = models.ImageField(upload_to = "images/")
-    icon = models.ImageField(upload_to = "images/")
     body = models.TextField()
+    icon = models.ImageField(upload_to = "images/")
+    image = models.ImageField(upload_to = "images/")
+    # for auto add date and time
+    # pub_date = models.DateTimeField(auto_now_add = True)
+    pub_date = models.DateTimeField()
+    votes_total = models.IntegerField(default=1)
     hunter = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
