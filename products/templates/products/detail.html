@@ -21,11 +21,11 @@
     <div class="col-4">
       {% if user.is_authenticated %}
       <a href="javascript:{document.getElementById('upvote{{item.id}}').submit()}" class="btn btn-warning btn-lg btn-block" >
-        <span class="oi oi-caret-top "></span> &nbsp; UPVOTE &nbsp;&nbsp; {{item.votes_total}}
+        <span class="oi oi-caret-top "></span> &nbsp; UPVOTE &nbsp;&nbsp; {{product.votes_total}}
       </a>
       {% else %}
       <a href="javascript:{document.getElementById('upvote{{item.id}}').submit()}" class="btn btn-secondary btn-lg btn-block" >
-        <span class="oi oi-caret-top "></span> &nbsp; UPVOTE &nbsp;&nbsp; {{item.votes_total}}
+        <span class="oi oi-caret-top "></span> &nbsp; UPVOTE &nbsp;&nbsp; {{product.votes_total}}
       </a>
       {% endif %}
     </div>
