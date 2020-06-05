@@ -35,4 +35,4 @@ def logout(request):
     # redirect to the homepage
     if request.method == 'POST':
         auth.logout(request)
-        return redirect('login')
+        return redirect('home')
