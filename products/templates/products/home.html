@@ -6,5 +6,39 @@ Product Home Page
 
 {% block content %}
   <h1 class="text-center">Welcome to the Product Hunt</h1>
-  {{ product }}
+  <div class="container">
+  {% for item in products %}
+      <div class="row pt-4 md-4 ">
+        <div class="col-2 pt-2 border-top border-success" onclick="window.location='{% url 'detail' item.id %}';">
+          <img class="img-fluid" src="{{ item.icon.url }}" alt="{{ item.title }}">
+        </div>
+        <div class="col-6 border-top border-success">
+          <div class="row ">
+            <a class="btn text-left" href="{% url 'detail' item.id %} "><h3>{{item.title}}</h3></a>
+          </div>
+          <div class="row">
+            <p>{{item.summary}} ...</p>
+          </div>
+          <div class="row">
+            <a class="btn btn-info" href="{% url 'detail' item.id %} ">Read More</a>
+          </div>
+        </div>
+        <div class="col-3 pt-4 border-top border-success">
+          <a href="javascript:{document.getElementById('upvote{{item.id}}').submit()}" class="btn btn-warning btn-lg btn-block" >
+            <span class="oi oi-caret-top "></span> &nbsp; UPVOTE &nbsp;&nbsp; {{item.votes_total}}
+          </a>
+        </div>
+      </div>
+
+      <form id="upvote{{item.id}}" action="{% url 'upvote' item.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" >
+      </form>
+  {% endfor %}
+  </div>
+
+
 {% endblock content %}
+
+{% block script %}
+{% endblock script %}
