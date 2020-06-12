@@ -23,3 +23,11 @@ class Product(models.Model):
 
     def pub_date_pretty(self):
         return self.pub_date.strftime('%b %e %Y')
+
+class Voting(models.Model):
+    products = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('user','products'))
+        index_together = (('user','products'))

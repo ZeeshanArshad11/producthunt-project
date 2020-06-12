@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from .models import Product
+from .models import Product, Voting
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -38,10 +39,26 @@ def detail(request, product_id):
     return render(request, 'products/detail.html', {'product':product})
 
 
+# @login_required(login_url="/account/signup")
+# def upvote(request, product_id):
+#     if request.method == 'POST':
+#         product = get_object_or_404(Product, pk=product_id)
+#         product.votes_total += 1
+#         product.save()
+#         return redirect('/product/' + str(product.id))
+
 @login_required(login_url="/account/signup")
 def upvote(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, pk=product_id)
-        product.votes_total += 1
-        product.save()
-        return redirect('/product/' + str(product.id))
+        try:
+            vote = Voting.objects.get(products_id = product_id , user=request.user )
+            return redirect('/product/' + str(product.id))
+        except vote.DoesNotExist:
+            vote = Voting.objects.create(user = request.user, products_id=product_id)
+            product.votes_total += 1
+            product.save()
+            vote.save()
+            return redirect('/product/' + str(product.id))
+    else:
+        return render(request, 'products/home.html')
