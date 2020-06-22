@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 {% block title %}
 Sign Up !
@@ -42,8 +44,19 @@ Sign Up !
         <button type="submit" class="btn btn-primary">Sign Up</button>
       </div>
     </div>
+    <div class="or-container">
+      <div class="line-separator"></div>
+      <div class="or-label">or</div>
+      <div class="line-separator"></div>
+    </div>
+    <p class="text-center">Sign Up with your social media account</p>
+      <div class="text-center social-btn ">
+        <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-secondary"><i class="fa fa-facebook"></i>&nbsp; Facebook</a>
+        <!-- <a href="#" class="btn btn-info"><i class="fa fa-twitter"></i>&nbsp; Twitter</a> -->
+    		<a href="{% provider_login_url 'google' %}" class="btn btn-danger"><i class="fa fa-google"></i>&nbsp; Google</a>
+      </div>
   </form>
-  <p class="text-center">If you have already Registered ! <a href="{% url 'login' %}" class="text-success"> <strong>Login</strong></a></p>
+  <p class="text-center text-muted small mt-3">If you have already Registered ! <a href="{% url 'login' %}" class="text-success"> <strong>Login</strong></a></p>
 </div>
 
 {% endblock content %}

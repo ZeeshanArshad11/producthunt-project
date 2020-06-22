@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 {% block title %}
 Login
@@ -16,28 +18,40 @@ Login
 </div>
 {% endif %}
 <h1 class="text-center">Log In !</h1>
+</div>
 <div class="container col-md-4 mt-4 " style="height: 500px;">
   <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
     <div class="form-group row">
       <label for="inputname" class="col-sm-4 col-form-label">User Name</label>
-      <div class="col-sm-6">
+      <div class="col-sm-8">
         <input type="text" class="form-control border-success" id="inputname" name="username" placeholder="Enter User Name">
       </div>
     </div>
     <div class="form-group row">
       <label for="inputPassword1" class="col-sm-4 col-form-label">Password</label>
-      <div class="col-sm-6">
+      <div class="col-sm-8">
         <input type="password" class="form-control border-success" id="inputPassword1" name="password" placeholder="*******">
       </div>
     </div>
     <div class="form-group row">
-      <div class="col-sm-12 text-center">
-        <button type="submit" class="btn btn-primary">Log In</button>
+      <div class="col-lg-12 text-center">
+        <button type="submit" class="btn btn-primary ">Log In</button>
       </div>
     </div>
+    <div class="or-container">
+      <div class="line-separator"></div>
+      <div class="or-label">or</div>
+      <div class="line-separator"></div>
+    </div>
+    <p class="text-center">Login with your social media account</p>
+      <div class="text-center social-btn ">
+        <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-secondary"><i class="fa fa-facebook"></i>&nbsp; Facebook</a>
+        <!-- <a href="#" class="btn btn-info"><i class="fa fa-twitter"></i>&nbsp; Twitter</a> -->
+    		<a href="{% provider_login_url 'google' %}" class="btn btn-danger"><i class="fa fa-google"></i>&nbsp; Google</a>
+      </div>
   </form>
-  <p class="text-center">If you are not Registered ! <a href="{% url 'signup' %}" class="text-success"> <strong>Signup</strong></a></p>
+  <p class="text-center text-muted small mt-3">If you are not Registered ! <a href="{% url 'signup' %}" class="text-success"> <strong>Signup</strong></a></p>
 </div>
 
 {% endblock content %}

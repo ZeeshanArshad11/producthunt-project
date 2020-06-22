@@ -13,7 +13,7 @@ def signup(request):
                 return render(request, 'accounts/signup.html', {'error':'User already exist!'})
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
-                messages.success(request, "New account created")
+                messages.success(request, "Your account created Successfully")
                 auth.login(request,user)
                 return redirect('home')
         else:
@@ -38,4 +38,5 @@ def logout(request):
     # redirect to the homepage
     if request.method == 'POST':
         auth.logout(request)
+        messages.success(request, "You are successfully logout")
         return redirect('home')

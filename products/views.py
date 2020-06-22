@@ -52,9 +52,9 @@ def upvote(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, pk=product_id)
         try:
-            vote = Voting.objects.get(products_id = product_id , user=request.user )
+            vote = Voting.objects.get(products_id = product_id , user_id=request.user)
             return redirect('/product/' + str(product.id))
-        except vote.DoesNotExist:
+        except Voting.DoesNotExist:
             vote = Voting.objects.create(user = request.user, products_id=product_id)
             product.votes_total += 1
             product.save()
